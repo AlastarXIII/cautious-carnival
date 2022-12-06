@@ -3,6 +3,20 @@ import optparse
 import re
 
 
+def print_intro():
+    print('''    #       #
+  ##         ##
+###           ###
+ ####       ####
+   ########### 
+ ##           ##
+ ##  0     0  ##
+ ##           ##
+ ##  —|—|—|—  ##
+   ###########''')
+    print("Welcome to ALASTAR MAC changer tool!")
+
+
 def get_arguments():
     parser = optparse.OptionParser()
     parser.add_option("-i", "--interface", dest="interface", help="Specify the interface to change its MAC address")
@@ -38,6 +52,7 @@ def get_mac_address(interface):
         exit(1)
 
 
+print_intro()
 options = get_arguments()
 get_mac_address(options.interface)
 change_mac(options.interface, options.new_mac)
