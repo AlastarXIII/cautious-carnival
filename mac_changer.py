@@ -1,35 +1,13 @@
 import subprocess
-import optparse
+import argparse
 import re
 
 
-def print_intro():
-    print('''                                        #       #
-                                      ##         ##
-                                    ###           ###
-                                     ####       ####
-                                       ########### 
-                                     ##           ##
-                                     ##  0     0  ##
-                                     ##           ##
-                                     ##  —|—|—|—  ##
-                                       ###########
-
-      #        ##               #          ######   ##########     #        #######
-     ###       ##              ###       ##      #      ##        ###       ##    ##
-    ## ##      ##             ## ##      ##             ##       ## ##      ##    ##
-   ##   ##     ##            ##   ##      ########      ##      ##   ##     ######
-  #########    ##           #########            ##     ##     #########    ##   ##
- ##       ##   ##          ##       ##   #       ##     ##    ##       ##   ##    ##
-##         ##  #########  ##         ##   #######       ##   ##         ##  ##     ##''')
-    print("Welcome to ALASTAR MAC changer tool!")
-
-
 def get_arguments():
-    parser = optparse.OptionParser()
-    parser.add_option("-i", "--interface", dest="interface", help="Specify the interface to change its MAC address")
-    parser.add_option("-m", "--mac", dest="mac_address", help="Specify the new MAC address")
-    (options, arguments) = parser.parse_args()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-i", "--interface", dest="interface", help="Specify the interface to change its MAC address")
+    parser.add_argument("-m", "--mac", dest="mac_address", help="Specify the new MAC address")
+    options = parser.parse_args()
     if not options.interface:
         parser.error("[-] Please specify an interface, use --help for more info.")
     elif not options.new_mac:
@@ -60,8 +38,8 @@ def get_mac_address(interface):
         exit(1)
 
 
-print_intro()
 options = get_arguments()
+check_mac_format(options.new_mac)
 get_mac_address(options.interface)
 change_mac(options.interface, options.new_mac)
 current_mac_address = get_mac_address(options.interface)
