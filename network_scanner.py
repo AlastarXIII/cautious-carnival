@@ -1,6 +1,5 @@
 import scapy.layers.l2 as scapy
 import argparse
-import re
 
 
 def get_arguments():
@@ -12,14 +11,10 @@ def get_arguments():
     return options
 
 
-def check_ip_format(ip):
-    ip_check_result = re.search(r"\d{1,3}.\d{1,3}.\d{1,3}.\d{1,3}/\d{1,3}", str(ip))
-    if not ip_check_result:
-        print("The IP range has a bad format. Please input a correct IP range")
-        exit(1)
-
-
 def print_result(results_list):
+    if not results_list:
+        print("Scanning failed. Check the specified IP range")
+        exit(1)
     print("IP\t\t\tMAC Address\n----------------------------------------------------------------")
     for result in results_list:
         print(result["ip"] + "\t\t" + result["mac"])
@@ -37,6 +32,5 @@ def scan(ip):
 
 
 options = get_arguments()
-check_ip_format(options.ip)
 scan_result = scan(options.ip)
 print_result(scan_result)
