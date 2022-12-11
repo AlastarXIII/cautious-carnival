@@ -29,7 +29,7 @@ def check_mac_format(new_mac):
 
 
 def get_mac_address(interface):
-    ifconfig_result = subprocess.check_output("ifconfig", interface)
+    ifconfig_result = subprocess.check_output(["ifconfig", interface])
     mac_search_result = re.search(r"\w\w:\w\w:\w\w:\w\w:\w\w:\w\w", str(ifconfig_result))
     if mac_search_result:
         return mac_search_result.group(0)
