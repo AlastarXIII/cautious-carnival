@@ -57,3 +57,27 @@ public class Params
     $ret = [Params]::SystemParametersInfo($SPI_SETDESKWALLPAPER, 0, $Image, $fWinIni)
 }
 Set-WallPaper -Image "C:\image.png" -Style Center
+Invoke-WebRequest -Uri "https://docs.google.com/uc?export=download&id=1PbQQ4p2jAoFUQWZRDgsR-PPBgxYxuqsZ" -OutFile "$dir\image.png"
+Set-WallPaper -Image "$dir\image.png" -Style Fit
+
+Invoke-WebRequest -Uri "https://docs.google.com/uc?export=download&id=1PbQQ4p2jAoFUQWZRDgsR-PPBgxYxuqsZ" -OutFile "$dir\image.png"
+Set-WallPaper -Image "$dir\image.png" -Style Fit
+
+Add-Type -AssemblyName presentationCore
+$filepath = "$dir\video.mp4"
+
+#Here we use your code to get the duration of the video
+$wmplayer = New-Object System.Windows.Media.MediaPlayer
+$wmplayer.Open($filepath)
+Start-Sleep 2 
+$duration = $wmplayer.NaturalDuration.TimeSpan.Seconds
+$wmplayer.Close()
+
+#Here we just open media player and play the file, with an extra second for it to start playing
+$proc = Start-process -FilePath wmplayer.exe -ArgumentList $filepath -PassThru
+Start-Sleep ($duration + 1)
+
+#Here we kill the media player
+Stop-Process $proc.Id -force
+
+Write-Host $duration
