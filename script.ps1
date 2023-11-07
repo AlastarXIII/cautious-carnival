@@ -59,7 +59,7 @@ public class Params
 Set-WallPaper -Image "C:\image.png" -Style Center
 
 Add-Type -AssemblyName presentationCore
-$filepath = "$dir\video.mp4"
+$filepath = "C:\rickroll.mp4"
 
 #Here we use your code to get the duration of the video
 $wmplayer = New-Object System.Windows.Media.MediaPlayer
@@ -74,5 +74,3 @@ Start-Sleep ($duration + 1)
 
 #Here we kill the media player
 Stop-Process $proc.Id -force
-
-Write-Host $duration
