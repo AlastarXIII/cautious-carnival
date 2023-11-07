@@ -57,8 +57,6 @@ public class Params
     $ret = [Params]::SystemParametersInfo($SPI_SETDESKWALLPAPER, 0, $Image, $fWinIni)
 }
 Set-WallPaper -Image "C:\image.png" -Style Center
-Invoke-WebRequest -Uri "https://docs.google.com/uc?export=download&id=1PbQQ4p2jAoFUQWZRDgsR-PPBgxYxuqsZ" -OutFile "$dir\image.png"
-Set-WallPaper -Image "$dir\image.png" -Style Fit
 
 Add-Type -AssemblyName presentationCore
 $filepath = "$dir\video.mp4"
